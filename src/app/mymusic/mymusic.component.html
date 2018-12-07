@@ -1,0 +1,56 @@
+<div class="panel panel-success">
+  <div class="panel panel-heading">
+    Music
+  </div>
+  <div class="panel panel-body">
+    <div class="table-responsive">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Artists</th>
+          </tr>
+        </thead>
+        <tbody>
+          <div *ngFor="let music of musicData">
+            <div class="panel panel-warning" *ngFor="let names of music.artists">
+              <!-- first layer entered. iterated too. inside first array and inside first elemnt of array which is object -->
+              <!-- <td>{{music._id}}</td> -->
+              <!-- second layer partially entered. not iterated. inside 2nd array and its first object but all manual. -->
+              <!-- <td>{{music.artists[0].name}}</td> -->
+              <!-- second layer successfully crossed, third remaining. -->
+
+              <div class="panel panel-heading">
+                <h3>{{names.name}}</h3>
+                <h5>{{names.genre}}</h5>
+                <table class="table">
+                  <thead>
+                    <tr>{{names.bio}}</tr>
+                  </thead>
+                </table>
+              </div>
+              <div class="panel panel-body" >
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Title</th>
+                      <th>Year</th>
+                      <th>Price</th>
+                    </tr>
+                  </thead>
+                  <!-- third layer crossed successfully -->
+                  <tbody *ngFor="let lastlayer of names.albums">
+                    <tr>
+                      <td>{{lastlayer.title}}</td>
+                      <td>{{lastlayer.year}}</td>
+                      <td>{{lastlayer.price}}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

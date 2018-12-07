@@ -1,0 +1,67 @@
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
+
+
+import { AppComponent } from './app.component';
+import { ProductComponent } from './products/product.component';
+import { StarComponent } from './shared/star.component';
+import { MymusicComponent } from './mymusic/mymusic.component';
+import { OrderComponent } from './orders/orders.component';
+import { HomeComponent } from './home/home.component';
+import { ProductDetailComponent } from './products/product-detail.component';
+import { PagenotfoundComponent } from './shared/pageNotfound.component';
+
+
+import { MyTaxPipe } from './products/taxPipe.pipe';
+import { SearchBarPipe } from './products/searchBar.pipe';
+
+
+import { ProductService } from './products/product.service';
+import { MyMusicService } from './mymusic/myMusic.service';
+
+
+@NgModule ({
+
+  imports: [
+    BrowserModule,
+    FormsModule,
+    HttpModule,
+    RouterModule.forRoot ([
+      { path: 'home', component: HomeComponent },
+      { path: 'products', component: ProductComponent },
+      { path: 'orders', component: OrderComponent },
+      { path: 'products/:id', component: ProductDetailComponent },
+      { path: 'music', component: MymusicComponent },
+      { path: '', redirectTo: 'home', pathMatch: 'full' },
+      { path: '**', component: PagenotfoundComponent  }
+    ])
+  ],
+
+  declarations: [
+    AppComponent,
+    ProductComponent,
+    StarComponent,
+    MyTaxPipe,
+    SearchBarPipe,
+    MymusicComponent,
+    OrderComponent,
+    HomeComponent,
+    ProductDetailComponent,
+    PagenotfoundComponent
+  ],
+
+  bootstrap: [
+    AppComponent
+  ],
+
+  providers: [
+    ProductService,
+    MyMusicService
+  ]
+
+})
+
+export class AppModule {}

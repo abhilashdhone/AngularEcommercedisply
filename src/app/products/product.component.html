@@ -1,0 +1,64 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    {{maintitle}}
+  </div>
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-md-2">Filter By:</div>
+      <div class="col-md-4">
+        <input type="text" [(ngModel)]="filtertext" />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h3>Filtered By: {{filtertext}}</h3>
+      </div>
+    </div>
+      <div class="table-responsive" *ngIf="products && products.length" >
+        <table class="table">
+          <thead>
+            <tr>
+              <th>
+                <button (click)="toggleimg()" class="btn btn-primary">
+                  {{img?"Hide Images":"Show Images"}}
+                </button>
+              </th>
+              <th>Name</th>
+              <th>Code</th>
+              <th>Date</th>
+              <th>Price</th>
+              <th>Rating</th>
+            </tr>
+          </thead>
+          <tbody>
+            <!-- filtertext here is the variable we assigned in the above input fiels, scroll up. -->
+            <tr *ngFor="let product of products | searchBar:filtertext">
+              <td><img [src]="product.imageUrl" *ngIf="img"/></td>
+
+  <!-- params are the parameters after the slash in url and query params are the parameters after the question mark
+  in the URL, while getting to some specific component, here it is detail of that product, we first need to set url
+like that after that we can use snapashot for params and subscribe for query params to get the data from the api. -->
+              <td><a [routerLink]="['/products', product.productId ]"
+                [queryParams]="{name:product.productName,desc:product.description,img:product.imageUrl}">{{product.productName | uppercase}}</a></td>
+              <td>{{product.productCode | lowercase}}</td>
+              <td>{{product.releaseDate | date}}</td>
+              <!-- here ngStyle is used to do styles based on condition so we used it along with a
+              ternary operator -->
+              <td [ngStyle]="{'color':product.price<30?'red':'green'}">{{product.price | taxpipe }}</td>
+              <td>
+                <!-- new template for showing glyphicons star symbols -->
+                <!-- starrating is a property of star component and here it is bound to actual star
+                rating from the product component -->
+                <!--  -->
+                <!--  -->
+                <!--  -->
+                <app-starcomp [starrating]="product.starRating" (messageThrower)="messageReceiver($event)">
+                </app-starcomp>
+                {{message}}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+  </div>
+</div>
